@@ -45,8 +45,8 @@ function setupCodeGuard() {
   log('━'.repeat(50), 'blue');
 
   try {
-    // Determine project root (parent of node_modules)
-    const projectRoot = path.resolve(process.cwd(), '../..');
+    // Determine project root - INIT_CWD is set by npm to the dir where `npm install` was run
+    const projectRoot = process.env.INIT_CWD || process.cwd();
     const codeGuardPath = path.resolve(__dirname, '..');
 
     log(`\n📁 Project Root: ${projectRoot}`, 'yellow');
@@ -90,15 +90,19 @@ function setupCodeGuard() {
     // Copy configuration files
     const configSource = path.join(codeGuardPath, '.bob-team');
     if (fs.existsSync(configSource)) {
-      const configs = fs.readdirSync(configSource);
+      const configs = fs.readdirSync(configSource, { withFileTypes: true });
       let copiedCount = 0;
 
-      for (const config of configs) {
-        const srcPath = path.join(configSource, config);
-        const destPath = path.join(bobTeamDir, config);
+      for (const entry of configs) {
+        const srcPath = path.join(configSource, entry.name);
+        const destPath = path.join(bobTeamDir, entry.name);
 
         if (!fs.existsSync(destPath)) {
-          fs.copyFileSync(srcPath, destPath);
+          if (entry.isDirectory()) {
+            copyDirectory(srcPath, destPath);
+          } else {
+            fs.copyFileSync(srcPath, destPath);
+          }
           copiedCount++;
         }
       }
