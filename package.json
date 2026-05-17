@@ -1,0 +1,68 @@
+{
+  "name": "@code-guard/bob-skills",
+  "version": "1.0.0",
+  "description": "Enhanced security and quality analysis system for IBM Bob IDE - installable via Git/npm",
+  "main": "index.js",
+  "bin": {
+    "code-guard": "./bin/code-guard.js",
+    "code-guard-verify": "./scripts/verify.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/post-install.js",
+    "verify": "node scripts/verify.js",
+    "test": "echo \"No tests specified yet\" && exit 0",
+    "prepublishOnly": "npm run verify"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "bob-ide",
+    "ibm-bob",
+    "security",
+    "security-audit",
+    "code-quality",
+    "quality-gate",
+    "owasp",
+    "owasp-top-10",
+    "static-analysis",
+    "vulnerability-scanner",
+    "team-intelligence",
+    "code-guard",
+    "npm-package",
+    "git-installable"
+  ],
+  "author": "Code Guard Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "files": [
+    "bob-skills/**/*.md",
+    ".bob-team/**/*.json",
+    "examples/**/*",
+    "scripts/**/*.js",
+    "bin/**/*.js",
+    "README.md",
+    "README_GIT.md",
+    "AGENTS.md",
+    "INSTALL.md",
+    "HOW_TO_USE.md",
+    "TESTING_GUIDE.md",
+    "GIT_INSTALLATION_GUIDE.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {}
+}

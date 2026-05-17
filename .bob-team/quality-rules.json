@@ -1,0 +1,285 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-05-17T00:00:00.000Z",
+  "rules": {
+    "test_coverage": {
+      "enabled": true,
+      "min_coverage_percent": 80,
+      "severity": "error",
+      "applies_to": ["critical", "high"],
+      "message": "Test coverage below minimum threshold",
+      "description": "All critical and high-risk files must have adequate test coverage",
+      "exemptions": ["config", "constants", "types"]
+    },
+    "code_complexity": {
+      "enabled": true,
+      "max_cyclomatic_complexity": 15,
+      "max_cognitive_complexity": 20,
+      "severity": "error",
+      "message": "Function complexity exceeds maximum",
+      "description": "Functions should be simple and easy to understand",
+      "recommendation": "Break down complex functions into smaller, focused functions"
+    },
+    "file_size": {
+      "enabled": true,
+      "max_lines": 500,
+      "severity": "warning",
+      "message": "File too large - consider splitting",
+      "description": "Large files are harder to maintain and understand",
+      "recommendation": "Split into multiple focused modules"
+    },
+    "function_length": {
+      "enabled": true,
+      "max_lines": 50,
+      "severity": "warning",
+      "message": "Function too long - consider refactoring",
+      "description": "Long functions are harder to test and maintain",
+      "recommendation": "Extract logical blocks into separate functions"
+    },
+    "security_score": {
+      "enabled": true,
+      "min_score": 70,
+      "block_below_score": 50,
+      "severity": "error",
+      "message": "Security score below minimum threshold",
+      "description": "Code must meet minimum security standards",
+      "recommendation": "Run /security-audit for detailed findings"
+    },
+    "documentation": {
+      "enabled": true,
+      "require_jsdoc": true,
+      "require_readme_update": false,
+      "min_doc_coverage": 80,
+      "severity": "warning",
+      "applies_to": ["critical", "high"],
+      "message": "Insufficient documentation",
+      "description": "Public APIs and critical code must be documented",
+      "recommendation": "Add JSDoc comments with @param, @returns, and @throws"
+    },
+    "naming_conventions": {
+      "enabled": true,
+      "check_camelCase": true,
+      "check_PascalCase": true,
+      "check_SCREAMING_SNAKE_CASE": true,
+      "severity": "warning",
+      "message": "Naming convention violation",
+      "description": "Consistent naming improves code readability",
+      "conventions": {
+        "variables": "camelCase",
+        "functions": "camelCase",
+        "classes": "PascalCase",
+        "constants": "SCREAMING_SNAKE_CASE",
+        "files": "kebab-case or camelCase"
+      }
+    },
+    "code_duplication": {
+      "enabled": true,
+      "max_duplicate_lines": 10,
+      "severity": "warning",
+      "message": "Code duplication detected",
+      "description": "Duplicated code increases maintenance burden",
+      "recommendation": "Extract common code into shared functions or modules"
+    },
+    "dependency_check": {
+      "enabled": true,
+      "block_vulnerable_deps": true,
+      "block_critical_vulns": true,
+      "block_high_vulns": false,
+      "severity": "error",
+      "message": "Vulnerable dependencies detected",
+      "description": "Dependencies with known vulnerabilities pose security risks",
+      "recommendation": "Update to patched versions or find alternatives"
+    },
+    "commit_message": {
+      "enabled": true,
+      "min_length": 10,
+      "max_length": 100,
+      "require_type": true,
+      "require_scope": false,
+      "severity": "warning",
+      "message": "Commit message does not meet standards",
+      "description": "Good commit messages help understand project history",
+      "format": "type(scope): description",
+      "types": ["feat", "fix", "docs", "style", "refactor", "test", "chore", "perf", "ci", "build", "revert"]
+    },
+    "import_organization": {
+      "enabled": true,
+      "group_imports": true,
+      "sort_imports": true,
+      "severity": "warning",
+      "message": "Imports not properly organized",
+      "description": "Organized imports improve code readability",
+      "order": ["external", "internal", "relative"]
+    },
+    "error_handling": {
+      "enabled": true,
+      "require_try_catch": true,
+      "require_error_logging": true,
+      "severity": "error",
+      "applies_to": ["critical", "high"],
+      "message": "Missing error handling",
+      "description": "Critical code must handle errors properly",
+      "recommendation": "Add try-catch blocks and log errors appropriately"
+    },
+    "type_safety": {
+      "enabled": true,
+      "require_types": true,
+      "no_any_type": true,
+      "severity": "warning",
+      "message": "Type safety violation",
+      "description": "Type annotations prevent runtime errors",
+      "recommendation": "Add TypeScript types or JSDoc type annotations"
+    },
+    "performance": {
+      "enabled": true,
+      "check_n_plus_one": true,
+      "check_memory_leaks": true,
+      "max_loop_depth": 3,
+      "severity": "warning",
+      "message": "Potential performance issue",
+      "description": "Performance issues can impact user experience",
+      "recommendation": "Optimize algorithms and data structures"
+    },
+    "accessibility": {
+      "enabled": false,
+      "require_alt_text": true,
+      "require_aria_labels": true,
+      "severity": "warning",
+      "message": "Accessibility issue detected",
+      "description": "Code should be accessible to all users"
+    }
+  },
+  "overrides": {
+    "test_files": {
+      "patterns": ["*.test.js", "*.spec.js", "*.test.ts", "*.spec.ts", "__tests__/**"],
+      "rules": {
+        "test_coverage": {
+          "enabled": false
+        },
+        "file_size": {
+          "max_lines": 1000
+        },
+        "function_length": {
+          "max_lines": 100
+        },
+        "documentation": {
+          "enabled": false
+        }
+      }
+    },
+    "config_files": {
+      "patterns": ["*.config.js", "*.config.ts", ".eslintrc.*", "webpack.config.*"],
+      "rules": {
+        "documentation": {
+          "enabled": false
+        },
+        "code_complexity": {
+          "max_cyclomatic_complexity": 25
+        }
+      }
+    },
+    "migration_files": {
+      "patterns": ["migrations/**", "**/migrations/**"],
+      "rules": {
+        "test_coverage": {
+          "enabled": false
+        },
+        "documentation": {
+          "enabled": false
+        }
+      }
+    },
+    "generated_files": {
+      "patterns": ["*.generated.*", "dist/**", "build/**"],
+      "rules": {
+        "all": {
+          "enabled": false
+        }
+      }
+    }
+  },
+  "team_overrides": {
+    "backend": {
+      "rules": {
+        "test_coverage": {
+          "min_coverage_percent": 90
+        },
+        "security_score": {
+          "min_score": 85
+        }
+      }
+    },
+    "frontend": {
+      "rules": {
+        "test_coverage": {
+          "min_coverage_percent": 75
+        },
+        "accessibility": {
+          "enabled": true
+        }
+      }
+    },
+    "security": {
+      "rules": {
+        "security_score": {
+          "min_score": 95
+        },
+        "documentation": {
+          "min_doc_coverage": 100
+        }
+      }
+    }
+  },
+  "progressive_enforcement": {
+    "enabled": true,
+    "description": "Gradually increase rule strictness over time",
+    "phases": [
+      {
+        "name": "Phase 1 - Awareness",
+        "duration_days": 30,
+        "all_rules_severity": "warning",
+        "description": "Team learns about quality standards"
+      },
+      {
+        "name": "Phase 2 - Adoption",
+        "duration_days": 30,
+        "critical_rules_severity": "error",
+        "other_rules_severity": "warning",
+        "description": "Critical rules become blocking"
+      },
+      {
+        "name": "Phase 3 - Enforcement",
+        "duration_days": null,
+        "all_rules_severity": "as_configured",
+        "description": "Full enforcement of all rules"
+      }
+    ],
+    "current_phase": "Phase 3 - Enforcement"
+  },
+  "exemptions": {
+    "temporary": [
+      {
+        "file": "legacy/old-module.js",
+        "rules": ["test_coverage", "code_complexity"],
+        "reason": "Legacy code - scheduled for refactor",
+        "expires": "2026-12-31",
+        "approved_by": "admin"
+      }
+    ],
+    "permanent": [
+      {
+        "pattern": "vendor/**",
+        "rules": ["all"],
+        "reason": "Third-party code"
+      }
+    ]
+  },
+  "auto_fix": {
+    "enabled": false,
+    "rules": [
+      "import_organization",
+      "naming_conventions"
+    ],
+    "description": "Automatically fix certain rule violations"
+  }
+}

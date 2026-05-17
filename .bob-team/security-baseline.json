@@ -1,0 +1,383 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-05-17T00:00:00.000Z",
+  "owasp_top_10": {
+    "A01_broken_access_control": {
+      "enabled": true,
+      "severity": "critical",
+      "patterns": [
+        {
+          "name": "Missing authentication check",
+          "regex": "router\\.(get|post|put|delete)\\([^)]*\\)\\s*{[^}]*(?!req\\.isAuthenticated|req\\.user|authenticate|requireAuth)",
+          "description": "Route handler without authentication middleware"
+        },
+        {
+          "name": "Authorization bypass",
+          "regex": "(if|while)\\s*\\([^)]*role\\s*===?\\s*['\"]admin['\"]\\s*\\)",
+          "description": "Hardcoded role check instead of proper authorization"
+        },
+        {
+          "name": "Insecure direct object reference",
+          "regex": "findById\\(req\\.(params|query|body)\\.[^)]+\\)",
+          "description": "Direct database access without ownership verification"
+        }
+      ]
+    },
+    "A02_cryptographic_failures": {
+      "enabled": true,
+      "severity": "critical",
+      "patterns": [
+        {
+          "name": "Weak encryption algorithm",
+          "regex": "(DES|RC4|MD5|SHA1)(?!.*HMAC)",
+          "description": "Use of weak or broken cryptographic algorithm"
+        },
+        {
+          "name": "Hardcoded encryption key",
+          "regex": "(key|secret|password)\\s*=\\s*['\"][a-zA-Z0-9]{16,}['\"]",
+          "description": "Encryption key hardcoded in source code"
+        },
+        {
+          "name": "Insecure random",
+          "regex": "Math\\.random\\(\\)",
+          "description": "Math.random() used for security-sensitive operations"
+        }
+      ]
+    },
+    "A03_injection": {
+      "enabled": true,
+      "severity": "critical",
+      "patterns": [
+        {
+          "name": "SQL injection",
+          "regex": "(query|execute)\\(['\"].*\\+.*\\+.*['\"]",
+          "description": "String concatenation in SQL query"
+        },
+        {
+          "name": "NoSQL injection",
+          "regex": "find\\(\\{[^}]*\\$where[^}]*\\}\\)",
+          "description": "Unsafe MongoDB $where operator"
+        },
+        {
+          "name": "Command injection",
+          "regex": "(exec|spawn|system)\\([^)]*\\+[^)]*\\)",
+          "description": "User input in system command"
+        },
+        {
+          "name": "LDAP injection",
+          "regex": "search\\(['\"].*\\+.*\\+.*['\"]",
+          "description": "Unescaped LDAP query"
+        }
+      ]
+    },
+    "A04_insecure_design": {
+      "enabled": true,
+      "severity": "high",
+      "patterns": [
+        {
+          "name": "Missing rate limiting",
+          "regex": "router\\.post\\(['\"]/(login|register|reset)['\"]",
+          "description": "Authentication endpoint without rate limiting"
+        },
+        {
+          "name": "Insufficient input validation",
+          "regex": "req\\.(body|params|query)\\.[a-zA-Z]+(?!.*validate|.*sanitize)",
+          "description": "User input used without validation"
+        }
+      ]
+    },
+    "A05_security_misconfiguration": {
+      "enabled": true,
+      "severity": "high",
+      "patterns": [
+        {
+          "name": "Debug mode enabled",
+          "regex": "(DEBUG|NODE_ENV)\\s*=\\s*['\"]?(true|development)['\"]?",
+          "description": "Debug mode or development environment in production"
+        },
+        {
+          "name": "Insecure CORS",
+          "regex": "Access-Control-Allow-Origin['\"]?\\s*:\\s*['\"]\\*['\"]",
+          "description": "CORS allows all origins with credentials"
+        },
+        {
+          "name": "Missing security headers",
+          "regex": "app\\.use\\((?!.*helmet)",
+          "description": "Security headers middleware not configured"
+        }
+      ]
+    },
+    "A06_vulnerable_components": {
+      "enabled": true,
+      "severity": "high",
+      "patterns": [
+        {
+          "name": "Outdated dependency",
+          "regex": "\"[^\"]+\":\\s*\"[<>=^~]*[0-9]+\\.[0-9]+\\.[0-9]+\"",
+          "description": "Check dependencies for known vulnerabilities"
+        }
+      ]
+    },
+    "A07_identification_authentication_failures": {
+      "enabled": true,
+      "severity": "critical",
+      "patterns": [
+        {
+          "name": "Weak password policy",
+          "regex": "password\\.length\\s*[<>=]+\\s*[1-7]",
+          "description": "Password minimum length less than 8 characters"
+        },
+        {
+          "name": "Session without expiration",
+          "regex": "session\\(\\{[^}]*(?!maxAge|expires)",
+          "description": "Session configuration without expiration"
+        },
+        {
+          "name": "JWT without expiration",
+          "regex": "jwt\\.sign\\([^)]*\\)(?!.*expiresIn)",
+          "description": "JWT token without expiration time"
+        }
+      ]
+    },
+    "A08_software_data_integrity_failures": {
+      "enabled": true,
+      "severity": "high",
+      "patterns": [
+        {
+          "name": "Insecure deserialization",
+          "regex": "(pickle\\.loads|yaml\\.load|eval)\\(.*req\\.",
+          "description": "Unsafe deserialization of user input"
+        },
+        {
+          "name": "Missing integrity check",
+          "regex": "npm install.*(?!--integrity)",
+          "description": "Package installation without integrity verification"
+        }
+      ]
+    },
+    "A09_security_logging_monitoring_failures": {
+      "enabled": true,
+      "severity": "medium",
+      "patterns": [
+        {
+          "name": "Sensitive data in logs",
+          "regex": "log.*\\b(password|token|secret|key|ssn|credit)\\b",
+          "description": "Logging sensitive information"
+        },
+        {
+          "name": "Missing audit logging",
+          "regex": "(delete|update).*(?!.*log|.*audit)",
+          "description": "Critical operation without audit logging"
+        }
+      ]
+    },
+    "A10_server_side_request_forgery": {
+      "enabled": true,
+      "severity": "high",
+      "patterns": [
+        {
+          "name": "SSRF vulnerability",
+          "regex": "(fetch|axios|request)\\(.*req\\.(body|params|query)",
+          "description": "HTTP request with user-controlled URL"
+        }
+      ]
+    }
+  },
+  "secret_patterns": [
+    {
+      "name": "AWS Access Key",
+      "pattern": "AKIA[0-9A-Z]{16}",
+      "severity": "critical",
+      "description": "AWS access key exposed in code"
+    },
+    {
+      "name": "AWS Secret Key",
+      "pattern": "aws_secret_access_key\\s*=\\s*['\"]?[A-Za-z0-9/+=]{40}['\"]?",
+      "severity": "critical",
+      "description": "AWS secret access key exposed"
+    },
+    {
+      "name": "GitHub Token",
+      "pattern": "gh[pousr]_[A-Za-z0-9]{36}",
+      "severity": "critical",
+      "description": "GitHub personal access token"
+    },
+    {
+      "name": "Generic API Key",
+      "pattern": "api[_-]?key['\"]?\\s*[:=]\\s*['\"]?[a-zA-Z0-9]{32,}['\"]?",
+      "severity": "high",
+      "description": "Generic API key pattern"
+    },
+    {
+      "name": "Private Key",
+      "pattern": "-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----",
+      "severity": "critical",
+      "description": "Private cryptographic key"
+    },
+    {
+      "name": "Password in Code",
+      "pattern": "password['\"]?\\s*[:=]\\s*['\"][^'\"]{8,}['\"]",
+      "severity": "high",
+      "description": "Hardcoded password"
+    },
+    {
+      "name": "Database Connection String",
+      "pattern": "(mongodb|mysql|postgres)://[^\\s]+:[^\\s]+@",
+      "severity": "critical",
+      "description": "Database connection string with credentials"
+    },
+    {
+      "name": "Slack Token",
+      "pattern": "xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24,32}",
+      "severity": "high",
+      "description": "Slack API token"
+    },
+    {
+      "name": "Stripe API Key",
+      "pattern": "sk_live_[0-9a-zA-Z]{24}",
+      "severity": "critical",
+      "description": "Stripe live API key"
+    },
+    {
+      "name": "JWT Secret",
+      "pattern": "jwt[_-]?secret['\"]?\\s*[:=]\\s*['\"][^'\"]{16,}['\"]",
+      "severity": "critical",
+      "description": "JWT signing secret"
+    }
+  ],
+  "compliance_checks": {
+    "gdpr": {
+      "enabled": true,
+      "checks": [
+        {
+          "name": "PII encryption",
+          "pattern": "(email|phone|ssn|address).*(?!encrypt|hash)",
+          "severity": "high",
+          "description": "Personal data without encryption"
+        },
+        {
+          "name": "Consent tracking",
+          "pattern": "user.*(?!consent|agreement)",
+          "severity": "medium",
+          "description": "User data collection without consent tracking"
+        },
+        {
+          "name": "Data retention",
+          "pattern": "delete.*user.*(?!retention|policy)",
+          "severity": "medium",
+          "description": "Data deletion without retention policy"
+        },
+        {
+          "name": "Right to deletion",
+          "pattern": "user.*(?!delete|remove|purge)",
+          "severity": "high",
+          "description": "Missing data deletion endpoint"
+        }
+      ]
+    },
+    "pci_dss": {
+      "enabled": false,
+      "checks": [
+        {
+          "name": "Payment data encryption",
+          "pattern": "(card|cvv|pan).*(?!encrypt)",
+          "severity": "critical",
+          "description": "Payment card data without encryption"
+        },
+        {
+          "name": "Secure transmission",
+          "pattern": "http://.*payment",
+          "severity": "critical",
+          "description": "Payment data over insecure connection"
+        },
+        {
+          "name": "Access logging",
+          "pattern": "payment.*(?!log|audit)",
+          "severity": "high",
+          "description": "Payment operations without audit logging"
+        }
+      ]
+    },
+    "hipaa": {
+      "enabled": false,
+      "checks": [
+        {
+          "name": "PHI encryption",
+          "pattern": "(medical|health|diagnosis).*(?!encrypt)",
+          "severity": "critical",
+          "description": "Protected health information without encryption"
+        },
+        {
+          "name": "Access controls",
+          "pattern": "patient.*(?!authorize|permission)",
+          "severity": "critical",
+          "description": "Patient data access without authorization"
+        }
+      ]
+    },
+    "soc2": {
+      "enabled": true,
+      "checks": [
+        {
+          "name": "Data access logging",
+          "pattern": "(read|write|delete).*(?!log|audit)",
+          "severity": "high",
+          "description": "Data operations without audit trail"
+        },
+        {
+          "name": "Encryption at rest",
+          "pattern": "database.*(?!encrypt)",
+          "severity": "high",
+          "description": "Database without encryption at rest"
+        },
+        {
+          "name": "Security headers",
+          "pattern": "app\\.use\\((?!.*helmet|.*security)",
+          "severity": "medium",
+          "description": "Missing security headers"
+        }
+      ]
+    }
+  },
+  "custom_rules": [
+    {
+      "name": "TODO in production code",
+      "pattern": "//\\s*TODO|#\\s*TODO",
+      "severity": "low",
+      "description": "TODO comment in production code",
+      "enabled": true
+    },
+    {
+      "name": "Console.log in production",
+      "pattern": "console\\.(log|debug|info)\\(",
+      "severity": "low",
+      "description": "Console logging in production code",
+      "enabled": true
+    },
+    {
+      "name": "Commented out code",
+      "pattern": "^\\s*//.*\\w{10,}",
+      "severity": "low",
+      "description": "Large blocks of commented code",
+      "enabled": true
+    }
+  ],
+  "exclusions": {
+    "files": [
+      "*.test.js",
+      "*.spec.js",
+      "*.mock.js",
+      "test/**",
+      "tests/**",
+      "__tests__/**",
+      "node_modules/**",
+      "dist/**",
+      "build/**"
+    ],
+    "patterns": [
+      "example",
+      "sample",
+      "demo"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "version": "2.0.0",
+  "project": {
+    "name": "Your Project Name",
+    "repo": "https://github.com/your-org/your-repo",
+    "primary_language": "javascript",
+    "created_at": "2026-05-17T00:00:00.000Z",
+    "compliance_requirements": ["GDPR", "SOC2"]
+  },
+  "security": {
+    "enabled": true,
+    "scan_on_commit": true,
+    "block_critical_vulnerabilities": true,
+    "secret_detection": true,
+    "owasp_compliance": true,
+    "dependency_scanning": true
+  },
+  "quality_gates": {
+    "enabled": true,
+    "enforce_on_commit": true,
+    "allow_override": false,
+    "min_test_coverage": 80,
+    "max_complexity": 15,
+    "max_risk_score": 70
+  },
+  "roles": {
+    "admins": [
+      {
+        "username": "admin",
+        "email": "admin@example.com",
+        "name": "Admin User",
+        "added_at": "2026-05-17T00:00:00.000Z",
+        "permissions": ["all"]
+      }
+    ],
+    "security_leads": [
+      {
+        "username": "security-lead",
+        "email": "security@example.com",
+        "name": "Security Lead",
+        "team": "security",
+        "added_at": "2026-05-17T00:00:00.000Z",
+        "permissions": ["view_security", "manage_security_policies"]
+      }
+    ],
+    "team_leads": [
+      {
+        "username": "team-lead",
+        "email": "lead@example.com",
+        "name": "Team Lead",
+        "team": "backend",
+        "manages": [],
+        "added_at": "2026-05-17T00:00:00.000Z",
+        "permissions": ["view_team", "manage_team"]
+      }
+    ],
+    "developers": [
+      {
+        "username": "developer",
+        "email": "dev@example.com",
+        "name": "Developer",
+        "team": "backend",
+        "joined": "2026-05-17T00:00:00.000Z",
+        "active": true,
+        "permissions": ["view_self"]
+      }
+    ]
+  },
+  "settings": {
+    "alert_thresholds": {
+      "risk_score_alert": 70,
+      "inactivity_days": 14,
+      "bus_factor_days": 30,
+      "error_density_multiplier": 2.0,
+      "security_score_alert": 60
+    },
+    "privacy": {
+      "developers_see_own_scores": true,
+      "leads_see_team_scores": true,
+      "admins_see_all": true,
+      "anonymous_mode": false,
+      "show_individual_names": true
+    },
+    "reports": {
+      "weekly_auto_report": true,
+      "include_individual_names": true,
+      "email_reports": false,
+      "slack_notifications": false
+    },
+    "sync": {
+      "auto_sync_on_commit": true,
+      "sync_frequency": "per_commit",
+      "keep_history_days": 90
+    },
+    "audit": {
+      "log_all_access": true,
+      "log_configuration_changes": true,
+      "log_security_scans": true,
+      "retention_days": 365
+    }
+  },
+  "integrations": {
+    "github": {
+      "enabled": false,
+      "webhook_url": "",
+      "pr_analysis": false
+    },
+    "slack": {
+      "enabled": false,
+      "webhook_url": "",
+      "channels": {
+        "alerts": "#code-guard-alerts",
+        "reports": "#code-guard-reports"
+      }
+    },
+    "jira": {
+      "enabled": false,
+      "url": "",
+      "api_token": "",
+      "ticket_correlation": false
+    }
+  },
+  "teams": {
+    "backend": {
+      "name": "Backend Team",
+      "lead": "team-lead",
+      "members": ["developer"],
+      "focus_areas": ["api", "database", "services"]
+    },
+    "frontend": {
+      "name": "Frontend Team",
+      "lead": "",
+      "members": [],
+      "focus_areas": ["ui", "components", "styles"]
+    },
+    "security": {
+      "name": "Security Team",
+      "lead": "security-lead",
+      "members": [],
+      "focus_areas": ["auth", "encryption", "compliance"]
+    }
+  }
+}

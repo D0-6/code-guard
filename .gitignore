@@ -1,0 +1,79 @@
+# Code Guard - Git Rules
+
+# Never commit generated reports (may contain sensitive data)
+.bob-team/reports/
+.bob-team/alerts/
+
+# Audit logs can be committed for compliance, but exclude if sensitive
+# Uncomment the line below if your audit logs contain sensitive data
+# .bob-team/audit-logs/
+
+# Never commit node_modules if any tooling added later
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Never commit env files
+.env
+.env.local
+.env.production
+.env.*.local
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE files (except .vscode settings that should be shared)
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Build outputs
+dist/
+build/
+out/
+target/
+
+# Coverage reports (can be regenerated)
+coverage/
+.nyc_output/
+*.lcov
+
+# Security scan temporary files
+.bob-team/security-scan-temp/
+
+# Bob session exports go here — DO commit these for hackathon judging
+# bob_sessions/ is intentionally NOT ignored
+
+# Keep these directories but ignore their contents
+.bob-team/reports/*
+!.bob-team/reports/.gitkeep
+.bob-team/alerts/*
+!.bob-team/alerts/.gitkeep
+
+# Commit these important files
+!.bob-team/config.json
+!.bob-team/team-memory.json
+!.bob-team/security-baseline.json
+!.bob-team/quality-rules.json
+!.bob-team/snapshots/
+!.bob-team/audit-logs/
+
+# Made with Bob
