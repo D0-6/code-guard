@@ -290,7 +290,7 @@ Automatically runs on `npm install` and:
 ### 5.1 From Git (Primary Method)
 
 ```bash
-npm install git+https://github.com/[your-username]/code-guard.git
+npm install git+https://github.com/D0-6/code-guard.git
 ```
 
 **What Happens:**
@@ -510,14 +510,14 @@ Returns proper exit codes for CI/CD integration.
 
 ### 11.1 GitHub Repository
 
-**Repository:** https://github.com/[your-username]/code-guard  
+**Repository:** https://github.com/D0-6/code-guard  
 **Status:** ✅ Published  
 **Visibility:** Public/Private (configurable)
 
 ### 11.2 Installation Command
 
 ```bash
-npm install git+https://github.com/[your-username]/code-guard.git
+npm install git+https://github.com/D0-6/code-guard.git
 ```
 
 ### 11.3 Tested Environments
@@ -626,9 +626,9 @@ Code Guard is **production-ready** and can be:
 
 ### 15.1 Repository
 
-- **GitHub:** https://github.com/[your-username]/code-guard
-- **Issues:** https://github.com/[your-username]/code-guard/issues
-- **Discussions:** https://github.com/[your-username]/code-guard/discussions
+- **GitHub:** https://github.com/D0-6/code-guard
+- **Issues:** https://github.com/D0-6/code-guard/issues
+- **Discussions:** https://github.com/D0-6/code-guard/discussions
 
 ### 15.2 Documentation
 

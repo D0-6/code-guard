@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/D0-6/code-guard.git"
   },
   "keywords": [
     "bob-ide",
@@ -36,9 +36,9 @@
   "author": "Code Guard Contributors",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/D0-6/code-guard/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/D0-6/code-guard#readme",
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
